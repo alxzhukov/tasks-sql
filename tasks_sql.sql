@@ -1,4 +1,4 @@
--- вывести количество фильмов в каждой категории, отсортировать по убыванию.
+-- find number of films in each category. Sort it by descending 
 
 select c."name" , count(f.film_id)
 from film f 
@@ -7,7 +7,7 @@ inner join category c on c.category_id = fc.category_id
 group by c.category_id 
 order by count(f.film_id);
 
---вывести 10 актеров, чьи фильмы большего всего арендовали, отсортировать по убыванию.
+--Find 10 actors with the most rented films, sorted in descending order.
 
 select actor_name, "count"
 from (
@@ -27,7 +27,7 @@ limit 10) tab
 order by "count";
 
 
--- вывести категорию фильмов, на которую потратили больше всего денег.
+-- show the category of films on which they spent the most money.
 
 select c."name" , sum(p.amount)
 from payment p 
@@ -40,7 +40,7 @@ group by c.category_id
 order by sum(p.amount) desc 
 limit 1;
 
---вывести названи€ фильмов, которых нет в inventory. Ќаписать запрос без использовани€ оператора IN.
+--show movies titles that are not in inventory. Write a query without using the IN operator.
 
 select distinct f.title 
 from film f 
@@ -48,7 +48,7 @@ left join inventory i
 on i.film_id = f.film_id 
 where i.inventory_id is null;
 
---вывести топ 3 актеров, которые больше всего по€вл€лись в фильмах в категории УChildrenФ. ≈сли у нескольких актеров одинаковое кол-во фильмов, вывести всех.
+--bring out the top 3 actors who have most appeared in films in the УChildrenФ category. If several actors have the same number of films, output all.
 select actor_full_name, "count"
 from (
 select concat(a.first_name || ' ' || a.last_name) as actor_full_name, count(a.actor_id) as "count", dense_rank () over(order by count(a.actor_id) desc) as "rank"
@@ -62,7 +62,7 @@ group by a.actor_id
 order by count(a.actor_id) desc) tab
 where rank<=3;
 
--- вывести города с количеством активных и неактивных клиентов (активный Ч customer.active = 1). ќтсортировать по количеству неактивных клиентов по убыванию.
+-- find cities with the number of active and inactive customers (active Ч customer.active = 1). Sort by the number of inactive clients in descending order.
 
 select c2.city ,'True' as "status", count(c.customer_id) 
 from customer c 
@@ -78,8 +78,8 @@ left join customer c2 on c2.address_id = a.address_id and c2.activebool = false
 group by c.city_id 
 order by city,"status","count" desc
 
--- вывести категорию фильмов, у которой самое большое кол-во часов суммарной аренды в городах (customer.address_id в этом city), и которые начинаютс€ на букву УaФ. 
---“о же самое сделать дл€ городов в которых есть символ У-Ф. Ќаписать все в одном запросе.
+-- Show the category of movies that has the largest number of hours of total rental in cities (customer.address_id in this city), and that start with the letter УaФ.
+--Do the same for cities that have a У-Ф symbol. Write everything in one request.
 
 select city, "name", "rental_hours" 
 from
