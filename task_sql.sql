@@ -1,6 +1,6 @@
-SET client_encoding = 'UTF8';
--- свыоваоы
--- найти количество фильмов в каждой категории, и отсортировать убывающе 
+п»їSET client_encoding = 'UTF8';
+-- СЃРІС‹РѕРІР°РѕС‹
+-- РЅР°Р№С‚Рё РєРѕР»РёС‡РµСЃС‚РІРѕ С„РёР»СЊРјРѕРІ РІ РєР°Р¶РґРѕР№ РєР°С‚РµРіРѕСЂРёРё, Рё РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ СѓР±С‹РІР°СЋС‰Рµ 
 select c."name" , count(f.film_id)
 from film f 
 inner join film_category fc on fc.film_id = f.film_id 
@@ -49,7 +49,7 @@ left join inventory i
 on i.film_id = f.film_id 
 where i.inventory_id is null;
 
---bring out the top 3 actors who have most appeared in films in the “Children” category. If several actors have the same number of films, output all.
+--bring out the top 3 actors who have most appeared in films in the РЈChildrenР¤ category. If several actors have the same number of films, output all.
 select actor_full_name, "count"
 from (
 select concat(a.first_name || ' ' || a.last_name) as actor_full_name, count(a.actor_id) as "count", dense_rank () over(order by count(a.actor_id) desc) as "rank"
@@ -63,7 +63,7 @@ group by a.actor_id
 order by count(a.actor_id) desc) tab
 where rank<=3;
 
--- find cities with the number of active and inactive customers (active — customer.active = 1). Sort by the number of inactive clients in descending order.
+-- find cities with the number of active and inactive customers (active Р§ customer.active = 1). Sort by the number of inactive clients in descending order.
 
 select c2.city ,'True' as "status", count(c.customer_id) 
 from customer c 
@@ -79,8 +79,8 @@ left join customer c2 on c2.address_id = a.address_id and c2.activebool = false
 group by c.city_id 
 order by city,"status","count" desc
 
--- Show the category of movies that has the largest number of hours of total rental in cities (customer.address_id in this city), and that start with the letter “a”.
---Do the same for cities that have a “-” symbol. Write everything in one request.
+-- Show the category of movies that has the largest number of hours of total rental in cities (customer.address_id in this city), and that start with the letter РЈaР¤.
+--Do the same for cities that have a РЈ-Р¤ symbol. Write everything in one request.
 
 select city, "name", "rental_hours" 
 from
