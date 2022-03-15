@@ -1,5 +1,5 @@
 SET client_encoding = 'UTF8';
-
+-- свыоваоы
 -- найти количество фильмов в каждой категории, и отсортировать убывающе 
 select c."name" , count(f.film_id)
 from film f 
