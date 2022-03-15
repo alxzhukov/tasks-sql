@@ -1,5 +1,4 @@
--- find number of films in each category. Sort it by descending 
-
+-- найти количество фильмов в каждой категории, и отсортировать убывающе 
 select c."name" , count(f.film_id)
 from film f 
 inner join film_category fc on fc.film_id = f.film_id 
